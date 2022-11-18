@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AbsensiResource;
 use App\Models\Absensi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AbsensiController extends Controller
 {
@@ -15,9 +18,9 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
+        $absensis = Absensi::latest()->get();
         return response()->json([
-            'data' => PostResource::collection($posts),
+            'data' => AbsensiResource::collection($absensis),
             'message' => 'Fetch all posts',
             'success' => true
         ]);
@@ -42,8 +45,8 @@ class AbsensiController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'jam_masuk' => 'null',
-            'jam_keluar' => 'null',
+            // 'jam_masuk' => 'required',
+            // 'jam_keluar' => 'required',
             'tanggal' => 'required',
             'bulan' => 'required',
             'tahun' => 'required'
@@ -57,7 +60,7 @@ class AbsensiController extends Controller
             ]);
         }
 
-        $post = Post::create([
+        $absensi = Absensi::create([
             'jam_masuk' => $request->get('jam_masuk'),
             'jam_keluar' => $request->get('jam_keluar'),
             'tanggal' => $request->get('tanggal'),
@@ -66,7 +69,7 @@ class AbsensiController extends Controller
         ]);
 
         return response()->json([
-            'data' => new PostResource($post),
+            'data' => new AbsensiResource($absensi),
             'message' => 'Post created successfully.',
             'success' => true
         ]);
@@ -81,7 +84,7 @@ class AbsensiController extends Controller
     public function show(Absensi $absensi)
     {
         return response()->json([
-            'data' => new PostResource($post),
+            'data' => new AbsensiResource($absensi),
             'message' => 'Data post found',
             'success' => true
         ]);
@@ -108,8 +111,8 @@ class AbsensiController extends Controller
     public function update(Request $request, Absensi $absensi)
     {
         $validator = Validator::make($request->all(), [
-            'jam_masuk' => 'null',
-            'jam_keluar' => 'null',
+            // 'jam_masuk' => 'required',
+            // 'jam_keluar' => 'required',
             'tanggal' => 'required',
             'bulan' => 'required',
             'tahun' => 'required'
@@ -123,7 +126,7 @@ class AbsensiController extends Controller
             ]);
         }
 
-        $post->update([
+        $absensi->update([
             'jam_masuk' => $request->get('jam_masuk'),
             'jam_keluar' => $request->get('jam_keluar'),
             'tanggal' => $request->get('tanggal'),
@@ -132,7 +135,7 @@ class AbsensiController extends Controller
         ]);
 
         return response()->json([
-            'data' => new PostResource($post),
+            'data' => new AbsensiResource($absensi),
             'message' => 'Post updated successfully',
             'success' => true
         ]);
@@ -146,7 +149,7 @@ class AbsensiController extends Controller
      */
     public function destroy(Absensi $absensi)
     {
-        $post->delete();
+        $absensi->delete();
 
         return response()->json([
             'data' => [],
