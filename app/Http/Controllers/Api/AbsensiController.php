@@ -20,9 +20,11 @@ class AbsensiController extends Controller
     {
         $absensis = Absensi::latest()->get();
         return response()->json([
+            'status' => 200,
+            'respon' => 'sukses',
+            'message' => 'Berhasil Get All Data',
             'data' => AbsensiResource::collection($absensis),
-            'message' => 'Fetch all posts',
-            'success' => true
+            
         ]);
     }
 
@@ -54,9 +56,9 @@ class AbsensiController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'data' => [],
+                'status' => 200,
+                'respon' => 'gagal',
                 'message' => $validator->errors(),
-                'success' => false
             ]);
         }
 
@@ -69,9 +71,10 @@ class AbsensiController extends Controller
         ]);
 
         return response()->json([
+            'status' => 200,
+            'respon' => 'sukses',
+            'message' => 'Buat Data Berhasil',
             'data' => new AbsensiResource($absensi),
-            'message' => 'Post created successfully.',
-            'success' => true
         ]);
     }
 
@@ -91,15 +94,16 @@ class AbsensiController extends Controller
         $req = Absensi::where('tanggal',$tanggal)->where('bulan',$bulan)->where('tahun',$tahun)->first();
         if($req == null){
             return response()->json([
-                // 'data' => new AbsensiResource($absensi),
-                'message' => 'Data post not found',
-                'success' => true
+                'status' => 200,
+                'respon' => 'gagal',
+                'message' => 'data tidak ditemukan',
             ]);
         }else{
             return response()->json([
+                'status' => 200,
+                'respon' => 'sukses',
+                'message' => 'Data Ditemukan',
                 'data' => new AbsensiResource($absensi),
-                'message' => 'Data post found',
-                'success' => true
             ]);
         }
 
@@ -140,9 +144,9 @@ class AbsensiController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'data' => [],
+                'status' => 200,
+                'respon' => 'gagal',
                 'message' => $validator->errors(),
-                'success' => false
             ]);
         }
 
@@ -155,9 +159,10 @@ class AbsensiController extends Controller
         ]);
 
         return response()->json([
+            'status' => 200,
+            'respon' => 'sukses',
+            'message' => 'Update Data Berhasil',
             'data' => new AbsensiResource($absensi),
-            'message' => 'Post updated successfully',
-            'success' => true
         ]);
     }
 
@@ -167,14 +172,15 @@ class AbsensiController extends Controller
      * @param  \App\Models\Absensi  $absensi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Absensi $absensi)
-    {
-        $absensi->delete();
+    // public function destroy(Absensi $absensi)
+    // {
+    //     $absensi->delete();
 
-        return response()->json([
-            'data' => [],
-            'message' => 'Post deleted successfully',
-            'success' => true
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 200,
+    //         'respon' => 'sukses',
+    //         'message' => 'Buat Data Berhasil',
+    //         'data' => new AbsensiResource($absensi),
+    //     ]);
+    // }
 }
