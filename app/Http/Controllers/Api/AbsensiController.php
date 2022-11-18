@@ -81,13 +81,33 @@ class AbsensiController extends Controller
      * @param  \App\Models\Absensi  $absensi
      * @return \Illuminate\Http\Response
      */
-    public function show(Absensi $absensi)
-    {
-        return response()->json([
-            'data' => new AbsensiResource($absensi),
-            'message' => 'Data post found',
-            'success' => true
-        ]);
+    public function show(Absensi $absensi,$tanggal,$bulan,$tahun)
+    {   
+        // return response()->json([
+        //             // 'data' => new AbsensiResource($absensi),
+        //             'message' => 'Data post found'. $tanggal .$bulan.$tahun,
+        //             'success' => true
+        //         ]);
+        $req = Absensi::where('tanggal',$tanggal)->where('bulan',$bulan)->where('tahun',$tahun)->first();
+        if($req == null){
+            return response()->json([
+                // 'data' => new AbsensiResource($absensi),
+                'message' => 'Data post not found',
+                'success' => true
+            ]);
+        }else{
+            return response()->json([
+                'data' => new AbsensiResource($absensi),
+                'message' => 'Data post found',
+                'success' => true
+            ]);
+        }
+
+        // return response()->json([
+        //     'data' => new AbsensiResource($absensi),
+        //     'message' => 'Data post found',
+        //     'success' => true
+        // ]);
     }
 
     /**

@@ -23,9 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
-});
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
-
     Route::resource('/absensis', \App\Http\Controllers\Api\AbsensiController::class); // tambahkan ini
+    Route::resource('/absensis.tanggal.bulan.tahun', \App\Http\Controllers\Api\AbsensiController::class); // tambahkan ini
+
 });
+
