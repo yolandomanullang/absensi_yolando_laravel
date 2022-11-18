@@ -44,8 +44,8 @@ class AbsensiController extends Controller
         $validator = Validator::make($request->all(), [
             'jam_masuk' => 'null',
             'jam_keluar' => 'null',
-            'tanggal' => 'required'
-            'bulan' => 'required'
+            'tanggal' => 'required',
+            'bulan' => 'required',
             'tahun' => 'required'
         ]);
 
@@ -110,8 +110,8 @@ class AbsensiController extends Controller
         $validator = Validator::make($request->all(), [
             'jam_masuk' => 'null',
             'jam_keluar' => 'null',
-            'tanggal' => 'required'
-            'bulan' => 'required'
+            'tanggal' => 'required',
+            'bulan' => 'required',
             'tahun' => 'required'
         ]);
 
@@ -136,7 +136,6 @@ class AbsensiController extends Controller
             'message' => 'Post updated successfully',
             'success' => true
         ]);
-    }
     }
 
     /**
